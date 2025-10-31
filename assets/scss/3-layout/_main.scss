@@ -1,0 +1,339 @@
+// ===================================
+// _main.scss
+// 全ページ共通のコンテンツレイアウトと基本設定
+// ===================================
+
+// 変数・関数・Mixin を使用するために読み込む
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+
+@use "./contents/page_top";
+@use "./contents/page_about";
+@use "./contents/page_service";
+@use "./contents/page_contact";
+@use "./contents/page_faq";
+@use "./contents/page_component-catalog";
+
+// -----------------------------------
+// 1. 基本となる body, html の設定
+// -----------------------------------
+html {
+  font-size: 100%;
+}
+body {
+  font-family: v.$font-family-sans-serif;
+  line-height: v.$line-height-base;
+  font-weight: v.$font-weight-normal;
+  font-size: 0.875rem;
+  color: v.$color-black;
+  background-color: v.$color-white;
+  padding-top: f.rem(60px);
+  @include m.breakpoint-header {
+    font-size: 1rem;
+    padding-top: f.rem(100px);
+  }
+}
+
+// -----------------------------------
+// 2. メインコンテンツエリア
+// -----------------------------------
+
+#main-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: v.$font-weight-bold;
+    line-height: v.$line-height-heading;
+  }
+  li {
+    line-height: v.$line-height-compressed;
+  }
+}
+
+// -----------------------------------
+// 3. コンテンツコンテナ
+// -----------------------------------
+
+.container {
+  width: 100%;
+  max-width: f.rem(v.$container-max-width);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: f.rem(v.$space-sm);
+  padding-right: f.rem(v.$space-sm);
+
+  @include m.breakpoint-md {
+    padding-left: f.rem(v.$space-md);
+    padding-right: f.rem(v.$space-md);
+  }
+}
+
+// -----------------------------------
+// 4. セクション共通（トップページと共通）
+// -----------------------------------
+// スペーシング
+
+.section-padding {
+  padding: f.rem(v.$section-heading-sp * 2) 0;
+  @include m.breakpoint-md {
+    padding: f.rem(v.$section-heading-pc * 2) 0;
+  }
+}
+
+.stack {
+  p + * {
+    margin-top: f.rem(14px);
+    @include m.breakpoint-md {
+      margin-top: f.rem(16px);
+    }
+  }
+}
+
+* + .section-heading-second {
+  margin-top: f.rem(v.$section-heading-sp * 1.5);
+  @include m.breakpoint-md {
+    margin-top: f.rem(v.$section-heading-pc * 1.5);
+  }
+}
+
+.section-heading + * {
+  margin-top: f.rem(v.$section-heading-sp * 1.5);
+  @include m.breakpoint-md {
+    margin-top: f.rem(v.$section-heading-pc * 1.5);
+  }
+}
+.section-heading-second + * {
+  margin-top: f.rem(v.$section-heading-second-sp * 0.75);
+  @include m.breakpoint-md {
+    margin-top: f.rem(v.$section-heading-second-pc * 0.75);
+  }
+}
+
+.container + .container {
+  margin-top: f.rem(v.$section-heading-sp * 2);
+  @include m.breakpoint-md {
+    margin-top: f.rem(v.$section-heading-pc * 2);
+  }
+}
+
+// セクションタイトル
+.section-heading {
+  font-size: f.rem(v.$section-heading-sp);
+  text-align: center;
+  color: v.$color-gray-dark;
+
+  @include m.breakpoint-md {
+    font-size: f.rem(v.$section-heading-pc);
+  }
+}
+.section-heading-second {
+  font-size: f.rem(v.$section-heading-second-sp);
+  text-align: center;
+  color: v.$color-gray-dark;
+
+  @include m.breakpoint-md {
+    font-size: f.rem(v.$section-heading-second-pc);
+  }
+}
+
+.big-concept {
+  font-size: f.fs-sp(26);
+  color: v.$color-primary;
+  margin-bottom: f.px-sp(16);
+
+  @include m.breakpoint-md {
+    font-size: f.rem(38px);
+    margin-bottom: f.px-pc(24);
+  }
+  &.color-white {
+    color: v.$color-white;
+  }
+}
+
+.lead-text {
+  font-size: f.fs-sp(16);
+  line-height: v.$line-height-lg;
+
+  @include m.breakpoint-md {
+    font-size: f.rem(18px);
+  }
+}
+
+// -----------------------------------
+// 5. ページヒーロー（全下層ページ共通のタイトル部分）
+// -----------------------------------
+.page-hero {
+  background-color: v.$nav-bg-level1;
+  padding: f.px-sp(32) 0;
+  background-image: url(../img/common/sub-hero.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+
+  @include m.breakpoint-header-down {
+    background-size: cover;
+  }
+
+  @include m.breakpoint-md {
+    padding: f.px-pc(60) 0;
+  }
+}
+
+.page-title {
+  font-size: f.fs-sp(32);
+  font-weight: v.$font-weight-bold;
+  text-align: center;
+  color: v.$color-gray-dark;
+  margin: 0;
+
+  @include m.breakpoint-md-down {
+    text-align: left;
+  }
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(48);
+  }
+}
+
+/* ===================================
+// パンくずリスト (Breadcrumbs) スタイル
+// =================================== */
+.breadcrumb-nav {
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+}
+
+.breadcrumb-list {
+  display: flex;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  color: v.$color-gray;
+
+  a {
+    color: v.$color-gray-dark;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // 区切り記号 (Font Awesome)
+  .fa-angle-right {
+    margin: 0 f.px-sp(6);
+    color: #bbb;
+
+    @include m.breakpoint-md {
+      margin: 0 f.px-pc(8);
+    }
+  }
+
+  // 現在のページ (リンクなし)
+  &.current {
+    color: v.$color-gray;
+    font-weight: v.$font-weight-bold;
+  }
+}
+
+.grid-2-col-content {
+  display: flex;
+  flex-direction: column;
+
+  .image-content {
+    align-self: center;
+    margin: 20px 0;
+  }
+
+  @include m.breakpoint-md {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .text-content,
+    .image-content {
+      width: 48%;
+      margin: 0;
+    }
+
+    .image-content {
+      align-self: auto;
+    }
+  }
+}
+
+// ===================================
+// コードコピー機能のスタイル
+// ===================================
+
+.code-copy-container {
+  position: relative;
+  margin-top: f.px-sp(30);
+  margin-bottom: f.px-sp(30);
+
+  @include m.breakpoint-md {
+    margin-top: f.px-pc(30);
+    margin-bottom: f.px-pc(30);
+  }
+}
+
+.code-block {
+  // 既存の <pre> のスタイルを維持
+  background-color: v.$color-gray-dark;
+  color: v.$color-white;
+  padding: f.px-sp(15);
+  overflow-x: auto;
+  border-radius: v.$border-radius;
+
+  // PCビューでの調整
+  @include m.breakpoint-md {
+    padding: f.px-pc(20);
+  }
+
+  code {
+    // codeタグ内のフォントを調整（任意）
+    font-family: monospace;
+    font-size: f.fs-sp(13);
+  }
+}
+
+.btn-copy {
+  position: absolute;
+  top: f.rem(10px);
+  right: f.rem(10px);
+  z-index: v.$z-index-base + 1; // 他の要素より手前に表示
+
+  // ボタンの基本スタイル
+  background-color: rgba(v.$color-white, 0.2);
+  border: none;
+  color: v.$color-white;
+  padding: f.rem(8px);
+  border-radius: v.$border-radius-sm;
+  cursor: pointer;
+  font-size: f.rem(16px);
+
+  @include m.transition(background-color 0.2s ease);
+
+  &:hover {
+    background-color: rgba(v.$color-white, 0.4);
+  }
+
+  &:active {
+    background-color: rgba(v.$color-white, 0.6);
+  }
+
+  // コピー成功時のフィードバック（任意）
+  &.copied {
+    background-color: v.$color-success;
+    color: v.$color-white;
+  }
+}

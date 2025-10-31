@@ -1,0 +1,325 @@
+// ===================================
+// _page-service.scss
+// サービス固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "sass:color";
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+#service-hero {
+  .lead-text.text-white-50 {
+    color: v.$color-gray-light;
+  }
+}
+
+.feature-card-item {
+  background-color: v.$color-white;
+  padding: f.px-sp(30);
+  margin-bottom: f.px-sp(40);
+  border-radius: v.$border-radius-lg;
+  box-shadow: v.$shadow-md;
+
+  @include m.breakpoint-md {
+    padding: f.px-pc(50);
+    margin-bottom: f.px-pc(60);
+  }
+}
+$section-heading-type: "underline-primary";
+.feature-title {
+  @include m.section-heading-design($section-heading-type);
+  & {
+    font-size: f.fs-sp(22);
+    margin-bottom: f.px-sp(20);
+  }
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(28);
+    margin-bottom: f.px-pc(30);
+  }
+  i {
+    margin-right: 0.5em;
+  }
+  &.text-right {
+    @include m.breakpoint-md {
+      text-align: right;
+    }
+  }
+}
+
+.feature-content-2col {
+  @include m.breakpoint-md {
+    display: flex;
+    gap: f.px-pc(40);
+    align-items: center;
+  }
+}
+
+.feature-content-2col .text-content {
+  @include m.breakpoint-md {
+    flex: 1;
+  }
+}
+
+.feature-content-2col .image-content {
+  @include m.breakpoint-md {
+    flex: 1;
+  }
+  @include m.breakpoint-md-down {
+    margin-top: f.px-sp(20);
+  }
+}
+
+.feature-card-item.reverse .feature-content-2col {
+  @include m.breakpoint-md {
+    flex-direction: row-reverse; /* 左右を反転させる */
+  }
+}
+
+.feature-card-item ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1em;
+}
+
+.feature-card-item li {
+  position: relative;
+  line-height: 1.7;
+  padding-left: f.px-sp(20);
+}
+
+.feature-card-item li::before {
+  content: "✓"; /* チェックマーク */
+  color: v.$color-success;
+  font-weight: v.$font-weight-bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: v.$font-weight-bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: v.$border-radius;
+}
+
+// ===================================
+// 導入事例セクション
+// ===================================
+
+.case-card-grid {
+  display: flex;
+  flex-direction: column; // SPは縦並び
+  gap: f.px-sp(30); // カード間の縦方向のスペース
+
+  @include m.breakpoint-md {
+    flex-direction: row;
+    flex-wrap: wrap; // 横幅が足りなくなったら折り返す
+    justify-content: space-between; // 均等に配置
+    gap: f.px-pc(30); // カード間の横方向のスペース
+  }
+}
+
+.case-card {
+  flex: 1 1 100%; // SPでは幅いっぱい
+  background-color: v.$color-white;
+  border-radius: v.$border-radius-lg;
+  box-shadow: v.$shadow-md;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; // ヘッダー、ボディ、フッターを縦に積む
+
+  // マウスオーバー時の軽微な浮き上がり効果
+  @include m.transition(transform 0.3s ease, box-shadow 0.3s ease);
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: v.$shadow-md;
+  }
+
+  @include m.breakpoint-md {
+    flex: 0 1 calc(33.33% - f.px-pc(20)); // PCで3カラムにする計算
+    max-width: calc(33.33% - f.px-pc(20));
+  }
+}
+
+.case-header {
+  padding: f.px-sp(15);
+  font-weight: v.$font-weight-bold;
+  .case-client {
+    margin: 0;
+    font-size: f.fs-sp(16);
+  }
+}
+
+.case-body {
+  padding: f.px-sp(20);
+  flex-grow: 1; // 本文を伸ばしてフッターを下に固定する
+
+  @include m.breakpoint-md {
+    padding: f.px-pc(25);
+  }
+}
+
+.case-title {
+  font-size: f.fs-sp(18);
+  font-weight: v.$font-weight-bold;
+  margin-top: 0;
+  margin-bottom: f.px-sp(10);
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(20);
+  }
+
+  // 成果の部分を強調
+  .highlight-success {
+    color: v.$color-success;
+  }
+}
+
+.case-quote {
+  font-style: italic;
+  color: v.$color-gray-dark;
+  border-left: 3px solid v.$color-gray-light;
+  padding-left: 10px;
+  margin-bottom: f.px-sp(15);
+}
+
+.case-detail-text {
+  font-size: f.fs-sp(14);
+  color: v.$color-gray;
+}
+
+.case-footer {
+  padding: f.px-sp(15) f.px-sp(20);
+  border-top: 1px dashed v.$color-gray-light;
+  text-align: right;
+}
+
+// ===================================
+// 料金プランセクション
+// ===================================
+.pricing-table-container {
+  display: flex;
+  flex-direction: column; /* デフォルトは縦並び */
+  justify-content: center;
+  gap: f.px-sp(40);
+
+  @include m.breakpoint-md {
+    flex-direction: row; /* PCでは横並び */
+    flex-wrap: wrap; /* SPで縦並びにする */
+    gap: f.px-pc(30);
+  }
+}
+
+.pricing-card {
+  flex: 1 1 100%; /* SPでは幅いっぱい */
+  background-color: v.$color-white;
+  border-radius: v.$border-radius-lg;
+  box-shadow: v.$shadow-md;
+  text-align: center;
+  overflow: hidden;
+
+  @include m.breakpoint-md {
+    max-width: f.px-pc(320); /* PCでの最大幅 */
+    flex: 1 1 auto; /* PCでは幅を均等に */
+  }
+}
+
+.pricing-card.recommended {
+  border: 3px solid v.$color-warning;
+  transform: scale(1.05); /* おすすめを強調 */
+  box-shadow: 0 8px 15px rgba(v.$color-black, 0.2);
+  z-index: v.$z-index-base + 2;
+}
+
+.plan-header {
+  padding: f.px-sp(20);
+}
+
+.plan-title {
+  font-size: f.fs-sp(24);
+  font-weight: v.$font-weight-bold;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(32);
+  }
+}
+
+.plan-tag {
+  font-size: f.fs-sp(14);
+  color: v.$color-secondary;
+  margin-bottom: 0;
+}
+
+.pricing-card.recommended .plan-tag {
+  color: v.$color-white !important;
+}
+
+.plan-price {
+  padding: f.px-sp(30) 0;
+  border-bottom: 1px solid v.$color-gray-light;
+}
+
+.pricing-card.recommended .plan-price {
+  background-color: v.$nav-bg-level1;
+}
+
+.price-amount {
+  font-size: f.fs-sp(40);
+  font-weight: v.$font-weight-bold;
+  color: v.$color-primary;
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(50);
+  }
+}
+
+.price-unit {
+  font-size: f.fs-sp(16);
+  color: v.$color-secondary;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-height: f.px-sp(200); /* 高さの調整 */
+
+  li {
+    padding: f.px-sp(15);
+    font-size: f.fs-sp(15);
+    border-bottom: 1px dashed v.$color-gray-light;
+    color: v.$color-gray-dark;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li.disabled {
+    color: v.$color-gray;
+    text-decoration: line-through;
+  }
+}
+
+.plan-cta {
+  padding: f.px-sp(30);
+  background-color: v.$nav-bg-level1;
+}
+
+.pricing-card.recommended .plan-cta {
+  background-color: color.adjust(
+    v.$color-primary,
+    $lightness: 40%
+  ); /* 少し明るいプライマリカラー */
+}

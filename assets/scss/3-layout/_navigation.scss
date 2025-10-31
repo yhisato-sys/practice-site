@@ -1,0 +1,458 @@
+// ===================================
+// _navigation.scss
+// モジュール化済みグローバルナビ
+// ===================================
+
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+@use "sass:color";
+
+// --------------------
+// 1. 共通リセット・基本 (モバイルファースト)
+// --------------------
+.global-nav {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // lv1 (1階層目) の li
+  > ul > li {
+    position: relative;
+
+    > a {
+      display: block;
+      padding: f.rem(15px) f.rem(20px);
+      min-height: f.rem(50px);
+      text-decoration: none;
+      color: v.$color-gray-dark;
+      background-color: v.$nav-bg-level1;
+      border-bottom: 1px solid v.$color-gray-light;
+
+      &:hover {
+        background-color: v.$nav-bg-level1-hover;
+      }
+    }
+
+    // lv2 以下の sub-menu 共通基本スタイル
+    .sub-menu {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li a {
+        display: block;
+        padding: f.rem(10px) f.rem(20px);
+        text-decoration: none;
+        color: v.$color-gray;
+        border-bottom: 1px solid v.$color-gray-light;
+        white-space: nowrap;
+      }
+      li:last-child a {
+        border-bottom: none;
+      }
+    }
+  }
+
+  // --------------------
+  // SPスタイル
+  // --------------------
+  @include m.breakpoint-header-down {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: f.rem(300px);
+    height: 100%;
+    background-color: v.$color-white;
+    z-index: 999;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    overflow-y: auto;
+
+    &.is-open {
+      transform: translateX(0);
+    }
+
+    > ul {
+      padding-top: f.rem(60px);
+      // lv1 li
+      > li {
+        &.is-active > a {
+          background-color: v.$nav-bg-level1-hover;
+        }
+
+        &.is-active > .sub-menu {
+          display: block;
+        }
+
+        .sub-menu li.is-active > .sub-menu {
+          display: block;
+        }
+
+        > a {
+          display: block;
+          padding: f.rem(15px) f.rem(20px);
+          min-height: f.rem(50px);
+          position: relative;
+        }
+
+        .sp-menu-toggle {
+          position: absolute;
+          right: f.rem(15px);
+          top: f.rem(10px);
+          width: f.rem(30px);
+          height: f.rem(30px);
+          background-color: v.$color-gray-light;
+          border: 1px solid v.$color-gray;
+          border-radius: f.rem(3px);
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          transition: background-color 0.2s ease-in-out;
+          z-index: 2;
+
+          &::before,
+          &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: v.$color-gray-dark;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+          }
+
+          &::before {
+            width: f.rem(16px);
+            height: f.rem(2px);
+          }
+
+          &::after {
+            width: f.rem(2px);
+            height: f.rem(16px);
+          }
+
+          &.is-open {
+            &::before {
+              transform: translate(-50%, -50%) rotate(0deg);
+            }
+            &::after {
+              transform: translate(-50%, -50%) rotate(90deg);
+            }
+          }
+        }
+
+        .pc-menu-toggle {
+          display: none;
+        }
+
+        // lv2 sub-menu (SP)
+        .sub-menu {
+          background-color: v.$nav-bg-level2-sp;
+
+          li a {
+            padding: f.rem(8px) f.rem(20px);
+          }
+
+          // lv2 li
+          li {
+            position: relative;
+            .sp-menu-toggle {
+              right: f.rem(15px);
+              top: f.rem(2px);
+              border: 1px solid v.$color-white;
+              background-color: v.$color-white;
+              display: flex;
+            }
+          }
+
+          // lv3 sub-menu (SP)
+          .sub-menu {
+            background-color: v.$nav-bg-level3-sp;
+            li a {
+              padding-left: f.rem(45px);
+              padding-right: f.rem(20px);
+
+              + .sp-menu-toggle {
+                display: none;
+              }
+
+              &:hover {
+                background-color: v.$nav-bg-level3-hover;
+              }
+            }
+            li {
+              .sp-menu-toggle {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // --------------------
+  // PCスタイル
+  // --------------------
+  @include m.breakpoint-header {
+    display: block !important;
+
+    > ul {
+      display: flex;
+      justify-content: center;
+
+      // lv1 li
+      > li {
+        position: relative;
+
+        > a {
+          border-bottom: none;
+          display: block;
+          padding: f.rem(15px) f.rem(20px);
+          min-height: auto;
+        }
+
+        &:hover {
+          > a {
+            background-color: v.$nav-bg-level1-hover;
+          }
+          // lv2 sub-menu の表示
+          > .sub-menu {
+            display: block;
+            position: absolute;
+            min-width: f.rem(200px);
+            z-index: 100;
+          }
+        }
+
+        // lv2 sub-menu (PC)
+        .sub-menu {
+          background-color: v.$nav-bg-level2-pc;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          border-top: none;
+          box-shadow: f.rem(2px) f.rem(2px) f.rem(5px) rgba(0, 0, 0, 0.1);
+
+          // lv2 li
+          li {
+            position: relative;
+            > a {
+              display: block;
+              padding: f.rem(10px) f.rem(20px);
+            }
+          }
+
+          // lv3 sub-menu (PC)
+          .sub-menu {
+            background-color: v.$nav-bg-level3-pc;
+            top: 0;
+            left: 100%;
+
+            li a {
+              display: block;
+              padding-right: f.rem(20px);
+              &:hover {
+                background-color: v.$nav-bg-level3-hover;
+              }
+            }
+          }
+
+          // lv2 li:hover の挙動
+          li:hover {
+            > a {
+              background-color: v.$nav-bg-level2-hover;
+            }
+            // lv3 sub-menu の表示
+            > .sub-menu {
+              display: block;
+            }
+          }
+        }
+
+        .pc-menu-toggle {
+          position: absolute;
+          right: f.rem(15px);
+          top: 50%;
+          transform: translateY(-50%);
+          width: f.rem(15px);
+          height: f.rem(15px);
+          background-color: transparent;
+          border: none;
+          border-radius: f.rem(3px);
+          cursor: default;
+          display: none;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          transition: background-color 0.2s ease-in-out;
+          z-index: 2;
+          pointer-events: none;
+
+          &::before,
+          &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: v.$color-gray-dark;
+            transition: transform 0.3s ease-in-out;
+          }
+
+          &::before {
+            width: f.rem(10px);
+            height: f.rem(1px);
+          }
+          &::after {
+            width: f.rem(1px);
+            height: f.rem(10px);
+          }
+        }
+
+        // --- PCトグルボタンの表示制御 ---
+        // lv1 a タグの右パディング調整
+        &.has-submenu > a {
+          padding-right: f.rem(45px); /* ボタンのスペース確保 */
+        }
+
+        // lv2 a タグの右パディング調整
+        &.has-submenu .has-submenu > a {
+          padding-right: f.rem(45px); /* ボタンのスペース確保 */
+        }
+
+        // lv1 トグルボタンの表示
+        &.has-submenu > .pc-menu-toggle {
+          display: flex;
+        }
+        // lv2 以降のトグルボタンの表示
+        .sub-menu li.has-submenu > .pc-menu-toggle {
+          display: flex;
+        }
+
+        // --- PCトグルボタンのホバー時の回転アニメーション ---
+        // lv1 li:hover
+        &:hover > .pc-menu-toggle {
+          &::before {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          &::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+          }
+        }
+        // lv2 li:hover
+        .sub-menu li:hover > .pc-menu-toggle {
+          &::before {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          &::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+          }
+        }
+
+        .sp-menu-toggle {
+          display: none;
+        }
+      }
+    }
+  }
+  // カレント表示
+  .active > a {
+    background-color: v.$nav-bg-level1-hover !important;
+  }
+  .active-group > a {
+    border-bottom: 2px solid v.$color-primary !important;
+  }
+}
+
+// --------------------
+// 4. ハンバーガーボタン
+// --------------------
+.hamburger-button {
+  display: none;
+
+  @include m.breakpoint-header-down {
+    display: block;
+    position: fixed;
+    top: f.rem(10px);
+    right: f.rem(10px);
+    width: f.rem(40px);
+    height: f.rem(40px);
+    background-color: v.$color-gray-dark;
+    border: none;
+    border-radius: f.rem(5px);
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+
+    span {
+      display: block;
+      position: absolute;
+      height: f.rem(2px);
+      width: f.rem(24px);
+      background: v.$color-white;
+      border-radius: f.rem(2px);
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.3s ease-in-out;
+    }
+
+    span:nth-child(1) {
+      top: f.rem(12px);
+    }
+    span:nth-child(2) {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    span:nth-child(3) {
+      bottom: f.rem(12px);
+    }
+
+    &.is-open {
+      span:nth-child(1) {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        bottom: 50%;
+        transform: translate(-50%, 50%) rotate(-45deg);
+      }
+    }
+  }
+}
+
+// --------------------
+// 5. オーバーレイ
+// --------------------
+.overlay {
+  display: none;
+
+  @include m.breakpoint-header-down {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(v.$color-black, 0.5);
+    z-index: 998;
+    cursor: pointer;
+
+    &.is-active {
+      display: block;
+    }
+  }
+
+  @include m.breakpoint-header {
+    display: none;
+  }
+}

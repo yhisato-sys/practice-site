@@ -1,0 +1,70 @@
+// ===================================
+// _header.scss
+// サイト共通ヘッダー
+// ===================================
+
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: v.$color-white;
+  color: v.$color-gray-dark;
+  box-shadow: 0 2px 4px rgba(v.$color-black, 0.05);
+  z-index: 1000;
+  @include m.transition(all 0.3s ease-out);
+}
+
+.header-hidden {
+  // ヘッダーの高さを負の値で上に移動させ、完全に隠す
+  transform: translateY(-100px);
+}
+
+.header .container {
+  height: f.rem(60px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include m.breakpoint-header {
+    height: f.rem(100px);
+  }
+}
+
+.site-logo {
+  width: f.rem(150px);
+
+  @include m.breakpoint-header {
+    width: f.rem(200px);
+  }
+
+  a {
+    color: inherit;
+    display: block;
+    line-height: 1;
+  }
+
+  .logo01 {
+    display: block;
+    line-height: 1;
+  }
+
+  svg {
+    fill: v.$color-primary;
+    transition: fill 0.3s;
+    display: block;
+  }
+}
+
+.header h1 {
+  font-size: f.rem(24px);
+  font-weight: v.$font-weight-bold;
+
+  a {
+    color: inherit;
+  }
+}

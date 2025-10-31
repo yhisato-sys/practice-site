@@ -1,0 +1,194 @@
+// ===================================
+// _page-contact.scss
+// お問い合わせ固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "sass:color";
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+/* ===================================
+// フォーム全体のレイアウトとスタイル
+// =================================== */
+
+.contact-container {
+  // フォームとテキストの説明を中央に集める
+  max-width: f.px-pc(900);
+  margin: 0 auto;
+}
+
+.contact-text {
+  margin-bottom: f.px-sp(30);
+
+  @include m.breakpoint-md {
+    margin-bottom: f.px-pc(40);
+    text-align: center;
+  }
+}
+
+/* 連絡先詳細 */
+.contact-details {
+  margin-top: f.px-sp(25);
+  padding: f.px-sp(20);
+  border: 1px solid v.$color-gray-light;
+  border-radius: v.$border-radius;
+  text-align: center;
+  background-color: v.$nav-bg-level1;
+
+  h3 {
+    font-size: f.fs-sp(16);
+    margin-top: 0;
+    margin-bottom: f.px-sp(8);
+  }
+}
+
+.tel-number {
+  font-size: f.fs-sp(20);
+  font-weight: v.$font-weight-bold;
+  color: v.$color-primary;
+  margin-bottom: 5px;
+
+  i {
+    margin-right: 8px;
+  }
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(24);
+  }
+}
+
+.hours {
+  font-size: f.fs-sp(14);
+  color: v.$color-gray;
+}
+
+/* ===================================
+// フォーム要素のスタイル
+// =================================== */
+
+.form-group {
+  margin-bottom: f.px-sp(25);
+
+  @include m.breakpoint-md {
+    margin-bottom: f.px-pc(30);
+  }
+}
+
+.form-label {
+  display: block;
+  font-size: f.fs-sp(15);
+  font-weight: v.$font-weight-bold;
+  margin-bottom: f.px-sp(8);
+  color: v.$color-gray-dark;
+
+  // 必須マーク (*) のスタイル調整
+  &::after {
+    content: "*";
+    color: v.$color-danger;
+    margin-left: 5px;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: f.fs-sp(16);
+  line-height: 1.5;
+  border: 1px solid v.$color-gray;
+  border-radius: v.$border-radius;
+  box-shadow: inset 0 1px 3px rgba(v.$color-black, 0.05);
+  @include m.transition(border-color 0.2s, box-shadow 0.2s);
+
+  &:focus {
+    border-color: v.$color-primary-light;
+    box-shadow: 0 0 0 3px rgba(v.$color-primary, 0.2);
+    outline: none;
+  }
+}
+
+textarea.form-control {
+  resize: vertical; // 縦方向のみリサイズ可能
+}
+
+/* プライバシーポリシーチェックボックス */
+.privacy-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: f.px-sp(30);
+
+  input[type="checkbox"] {
+    margin-right: 8px;
+    // サイズ調整
+    transform: scale(1.2);
+  }
+
+  .checkbox-label {
+    font-weight: v.$font-weight-normal;
+
+    a {
+      color: v.$color-primary;
+      text-decoration: underline;
+    }
+
+    // * をチェックボックスのラベルには表示させない
+    &::after {
+      content: none;
+    }
+  }
+}
+
+/* フォームアクション（ボタン） */
+.form-actions {
+  text-align: center;
+  margin-top: f.px-sp(40);
+
+  @include m.breakpoint-md {
+    margin-top: f.px-pc(50);
+  }
+}
+
+.btn-submit {
+  display: inline-block;
+  padding: 12px 40px;
+  font-size: f.fs-sp(18);
+  font-weight: v.$font-weight-bold;
+  color: v.$color-white;
+  background-color: v.$color-primary;
+  border: 1px solid v.$color-primary;
+  border-radius: v.$border-radius;
+  cursor: pointer;
+  @include m.transition(background-color 0.3s, opacity 0.3s);
+
+  &:hover {
+    background-color: color.adjust(v.$color-primary, $lightness: -10%);
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: v.$color-gray;
+    border-color: v.$color-gray;
+    cursor: not-allowed;
+  }
+}
+
+// 入力フィールドのエラー表示
+input[type="text"],
+input[type="email"],
+textarea {
+  // 基本スタイル (既にどこかで定義されているかもしれませんが、確認用)
+  border: 1px solid v.$color-gray-light;
+  padding: f.px-sp(10);
+  border-radius: v.$border-radius;
+  width: 100%;
+  box-sizing: border-box;
+  @include m.transition(border-color 0.2s ease);
+}
+
+// is-invalidクラスが適用された際のエラー表示
+.is-invalid {
+  border-color: v.$color-danger !important; // 危険色で強調
+  box-shadow: 0 0 0 f.rem(3px) rgba(v.$color-danger, 0.2); // ソフトな影
+}

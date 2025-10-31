@@ -1,0 +1,135 @@
+// ===================================
+// _page-faq.scss
+// よくある質問固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "sass:color";
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+/* ===================================
+// ページ内リンク (TOC) スタイル
+// =================================== */
+.faq-toc-nav {
+  @include m.center-flex; // flexで中央に配置
+  flex-wrap: wrap;
+  gap: f.px-sp(10); // リンク間のスペース
+  max-width: f.rem(800px);
+  margin: 0 auto;
+
+  @include m.breakpoint-md {
+    gap: f.px-pc(20);
+  }
+}
+
+.toc-link {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid v.$color-primary;
+  color: v.$color-primary;
+  text-decoration: none;
+  border-radius: v.$border-radius;
+  font-size: f.fs-sp(14);
+  @include m.transition(background-color 0.3s, color 0.3s);
+
+  &:hover {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+  }
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(16);
+  }
+}
+
+/* ===================================
+// FAQリスト・アコーディオンスタイル
+// =================================== */
+
+.faq-accordion {
+  max-width: f.rem(800px);
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid v.$color-gray-light;
+}
+
+.faq-question-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: f.rem(15px) 0;
+
+  @include m.breakpoint-md {
+    padding: f.rem(20px) 0;
+  }
+}
+
+.faq-question-text {
+  font-size: f.rem(16px);
+  font-weight: v.$font-weight-bold;
+  color: v.$color-gray-dark;
+  padding-right: f.rem(10px); // アイコンとの隙間
+
+  @include m.breakpoint-md {
+    font-size: f.rem(18px);
+  }
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  color: v.$color-primary;
+  font-size: f.rem(14px);
+  width: f.rem(20px); // アイコンエリアを固定
+  text-align: center;
+  @include m.transition(); // アイコンの回転アニメーション
+}
+
+/* ===================================
+// 回答コンテンツとアニメーション
+// =================================== */
+
+.faq-answer-content {
+  overflow: hidden;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
+
+  // 回答テキストのスタイル
+  p {
+    font-size: f.rem(15px);
+    padding-bottom: f.rem(15px);
+    padding-left: f.rem(25px);
+
+    @include m.breakpoint-md {
+      font-size: f.rem(16px);
+      padding-bottom: f.rem(20px);
+      padding-left: f.rem(30px);
+    }
+  }
+}
+
+/* ===================================
+// 開いている状態のスタイル (JavaScriptで付与されるクラス)
+// =================================== */
+
+.faq-question-btn[aria-expanded='true'] {
+  // 質問ボタンが開いているとき
+
+  // アイコンの回転
+  .faq-icon {
+    transform: rotate(
+      45deg
+    ); /* プラスアイコンを45度回転させてマイナスに見せる */
+    color: v.$color-danger;
+  }
+}

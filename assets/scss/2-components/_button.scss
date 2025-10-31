@@ -1,0 +1,219 @@
+// ===================================
+// _button.scss
+// サイト共通ボタンコンポーネントのスタイル
+// ===================================
+
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+@use "sass:color"; // color.adjust() 関数を使用するため
+
+// -----------------------------------
+// 1. ベースボタン (.btn)
+// -----------------------------------
+.btn {
+  display: inline-flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+
+  padding: f.rem(v.$space-md) f.rem(v.$space-lg);
+  border-radius: v.$border-radius;
+
+  font-size: 1rem;
+  font-weight: v.$font-weight-bold;
+  line-height: 1.2;
+
+  @include m.transition(all 0.3s ease);
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// -----------------------------------
+// 2. ボタンバリエーション
+// -----------------------------------
+
+// 先頭に.i-が付くクラス（svgアイコン用）
+[class^='i-'] {
+  display: inline-block;
+  line-height: 1;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// プライマリボタン（最も重要なアクション）
+.btn-primary {
+  background-color: v.$color-primary;
+  color: v.$color-white;
+  border-color: v.$color-primary;
+
+  &:hover {
+    // color.darken() の代わりに color.adjust() を使用
+    background-color: color.adjust(v.$color-primary, $lightness: -5%);
+    border-color: color.adjust(v.$color-primary, $lightness: -5%);
+  }
+
+  [class^='i-'] svg {
+    fill: v.$color-white;
+  }
+}
+
+// セカンダリボタン（補助的なアクション）
+.btn-secondary {
+  background-color: v.$color-white;
+  color: v.$color-gray-dark;
+  border-color: v.$color-gray-light;
+
+  &:hover {
+    background-color: v.$color-gray-light;
+  }
+}
+
+.btn-white {
+  background-color: v.$color-white;
+  &:hover {
+    background-color: rgba(v.$color-gray-light, 0.9);
+  }
+}
+
+// アウトラインボタン (Primary)
+.btn-outline-primary {
+  background-color: transparent;
+  color: v.$color-primary;
+  border-color: v.$color-primary;
+
+  &:hover {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+  }
+  [class^='i-'] svg {
+    fill: v.$color-primary;
+  }
+  &:hover {
+    [class^='i-'] svg {
+      fill: v.$color-white;
+    }
+  }
+}
+
+// 影付きボタン (Secondary)
+.btn-shadow-secondary {
+  background-color: v.$color-secondary;
+  color: v.$color-white;
+  border-color: v.$color-secondary;
+  box-shadow: 0 4px 8px rgba(v.$color-secondary, 0.4);
+
+  &:hover {
+    box-shadow: 0 6px 12px rgba(v.$color-secondary, 0.6);
+    transform: translateY(-2px);
+  }
+}
+
+// アイコン付きボタン
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: f.rem(v.$space-sm);
+}
+
+// 矢印付きボタン (Primary)
+.btn-with-arrow {
+  position: relative;
+  padding-right: f.rem(v.$space-xl * 1.5);
+
+  &::after {
+    content: '→'; // または Font Awesomeのアイコン
+    position: absolute;
+    right: f.rem(v.$space-lg);
+    @include m.transition(right 0.3s ease);
+  }
+
+  &.is-back {
+    background-color: rgba(v.$color-gray, 0.8);
+    border: 1px solid rgba(v.$color-gray, 0.8);
+    padding-right: f.rem(v.$space-lg);
+    padding-left: f.rem(v.$space-xl * 1.5);
+    &::after {
+      display: none;
+    }
+    &::before {
+      content: '←'; // または Font Awesomeのアイコン
+      position: absolute;
+      left: f.rem(v.$space-lg);
+      @include m.transition(left 0.3s ease);
+    }
+  }
+
+  &:hover::after {
+    right: f.rem(v.$space-md);
+  }
+  &.is-back:hover {
+    background-color: rgba(v.$color-gray, 1);
+  }
+  &.is-back:hover::before {
+    left: f.rem(v.$space-md);
+  }
+}
+
+// 角丸が非常に強いピル型ボタン
+.btn-pill {
+  border-radius: 50rem; // 非常に大きい値で角丸を円形に
+}
+
+// 透過ホバーボタン（白ベース）
+.btn-transparent-hover {
+  background-color: rgba(v.$color-white, 0.8);
+  color: v.$color-primary;
+  border: 1px solid v.$color-primary;
+
+  &:hover {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+  }
+
+  [class^='i-'] svg {
+    fill: v.$color-primary;
+  }
+  &:hover {
+    [class^='i-'] svg {
+      fill: v.$color-white;
+    }
+  }
+}
+
+.btn-more {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid v.$color-primary;
+  color: v.$color-primary;
+  text-decoration: none;
+  border-radius: v.$border-radius;
+  @include m.transition();
+  &:hover {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+  }
+}
+
+// -----------------------------------
+// 3. サイズバリエーション
+// -----------------------------------
+
+// スモールボタン
+.btn-sm {
+  padding: f.rem(v.$space-sm) f.rem(v.$space-md);
+  font-size: f.rem(14px);
+}
+
+// ラージボタン
+.btn-lg {
+  padding: f.rem(v.$space-lg) f.rem(v.$space-xl);
+  font-size: f.rem(20px);
+}

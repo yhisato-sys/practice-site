@@ -1,0 +1,62 @@
+// ===================================
+// _functions.scss
+// SCSSのカスタム関数を定義するファイル
+// ===================================
+
+@use "sass:math"; // 数学関数を有効化 (Sassの標準)
+@use "variables" as v; 
+
+
+@function rem($pixels) {
+    @return math.div($pixels, v.$base-unit) * 1rem;
+}
+
+// -----------------------------------
+// レスポンシブル・フォントサイズ
+// -----------------------------------
+
+@function fs-sp($fs-sp) {
+  $minFontSize: math.div($fs-sp, v.$maxWidthSP) * 100vw;
+  $maxFontSize: math.div($fs-sp, 16) * 1rem;
+  @return min(#{$minFontSize}, #{$maxFontSize});
+}
+
+@function fs-pc($fs-pc) {
+  $minFontSizePc: math.div($fs-pc, v.$maxWidthPc) * 100vw;
+  $maxFontSizePc: math.div($fs-pc, 16) * 1rem;
+  @return min(#{$minFontSizePc}, #{$maxFontSizePc});
+}
+
+@function fs-pc-key($fs-pc-Key) {
+  $minFontSizeKey: math.div($fs-pc-Key, v.$maxWidthKey) * 100vw;
+  $maxFontSizeKey: math.div($fs-pc-Key, 16) * 1rem;
+  @return min(#{$minFontSizeKey}, #{$maxFontSizeKey});
+}
+
+// -----------------------------------
+// レスポンシブル・スペーシング
+// -----------------------------------
+
+@function px-sp($px-sp) {
+  $minSize: math.div($px-sp, v.$maxWidthSP) * 100vw;
+  $maxSize: $px-sp * 1px;
+  @return min(#{$minSize}, #{$maxSize});
+}
+
+@function px-sp-neg($value) {
+  $minSize: math.div($value, v.$maxWidthSP) * -100vw;
+  $maxSize: $value * -1px;
+  @return max(#{$minSize}, #{$maxSize});
+}
+
+@function px-pc($px-pc) {
+  $minSizePc: math.div($px-pc, v.$maxWidthPc) * 100vw;
+  $maxSizePc: $px-pc * 1px;
+  @return min(#{$minSizePc}, #{$maxSizePc});
+}
+
+@function px-pc-neg($value) {
+  $minSizePc: math.div($value, v.$maxWidthPc) * -100vw;
+  $maxSizePc: $value * -1px;
+  @return max(#{$minSizePc}, #{$maxSizePc});
+}

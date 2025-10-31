@@ -1,0 +1,434 @@
+// ===================================
+// _page-about.scss
+// 会社案内固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+//* 会社案内トップ専用 */
+.about-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: f.px-sp(20);
+
+  @include m.breakpoint-md {
+    gap: f.px-pc(30);
+  }
+}
+
+.about-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: f.px-sp(30);
+  background-color: v.$color-white;
+  border-radius: v.$border-radius;
+  box-shadow: v.$shadow-sm;
+  text-decoration: none;
+  color: v.$color-gray-dark;
+  @include m.transition();
+
+  &:hover {
+    box-shadow: v.$shadow-md;
+    transform: translateY(-5px);
+  }
+
+  // Font Awesomeアイコン
+  i {
+    color: v.$color-primary;
+    margin-bottom: f.px-sp(10);
+  }
+
+  .nav-text {
+    font-size: f.fs-sp(18);
+    font-weight: v.$font-weight-bold;
+    margin-top: f.px-sp(10);
+    @include m.breakpoint-md {
+      font-size: f.fs-sp(20);
+    }
+  }
+}
+
+/* ご挨拶ページ専用 */
+.greeting-layout {
+  @include m.breakpoint-md {
+    display: flex;
+    gap: f.px-pc(60);
+    align-items: flex-start;
+  }
+}
+
+.greeting-message {
+  @include m.breakpoint-md {
+    flex: 2; // メッセージを広めに
+  }
+
+  .section-heading {
+    text-align: left;
+    margin-bottom: f.px-sp(24);
+  }
+
+  p {
+    line-height: 1.8;
+  }
+}
+
+.signer {
+  margin-top: f.px-sp(30);
+  text-align: right;
+
+  @include m.breakpoint-md {
+    margin-top: f.px-pc(40);
+  }
+}
+
+.signer-name {
+  font-size: f.fs-sp(18);
+  font-weight: v.$font-weight-bold;
+}
+
+.signer-date {
+  font-size: f.fs-sp(14);
+  color: v.$color-gray;
+}
+
+.greeting-photo {
+  @include m.breakpoint-md {
+    flex: 1; // 写真を狭めに
+    flex-shrink: 0;
+  }
+
+  @include m.breakpoint-md-down {
+    margin-top: f.px-sp(30);
+  }
+}
+
+.ceo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: v.$border-radius-lg;
+  box-shadow: v.$shadow-md;
+}
+
+/* 会社概要ページ専用 */
+.company-table {
+  max-width: f.rem(800px);
+  margin: 0 auto;
+  border: 1px solid v.$color-gray-light;
+  border-bottom: none;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid v.$color-gray-light;
+
+  @include m.breakpoint-md-down {
+    display: block;
+  }
+}
+
+.table-term,
+.table-description {
+  padding: f.rem(15px);
+  font-size: f.rem(15px);
+  line-height: 1.6;
+
+  @include m.breakpoint-md {
+    padding: f.rem(20px);
+    font-size: f.rem(16px);
+  }
+}
+
+.table-term {
+  flex-shrink: 0;
+  width: f.rem(120px);
+  font-weight: v.$font-weight-bold;
+  background-color: v.$nav-bg-level1;
+  border-right: 1px solid v.$color-gray-light;
+
+  @include m.breakpoint-md {
+    width: f.rem(180px);
+  }
+
+  @include m.breakpoint-md-down {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+.table-description {
+  flex-grow: 1;
+  color: v.$color-gray-dark;
+}
+
+/* マップセクション */
+.map-container {
+  margin-top: 5rem;
+}
+
+.map-heading {
+  text-align: center;
+  font-size: f.fs-sp(20);
+  margin-bottom: f.px-sp(20);
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(24);
+    margin-bottom: f.px-pc(30);
+  }
+}
+
+.map-placeholder {
+  width: 100%;
+  height: f.px-sp(250);
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: v.$color-gray;
+  font-weight: v.$font-weight-bold;
+
+  @include m.breakpoint-md {
+    height: f.px-pc(450);
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* 沿革ページ専用 */
+.timeline {
+  max-width: f.px-pc(800);
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+
+  // 縦線 (PCのみ)
+  @include m.breakpoint-md {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background-color: v.$color-gray-light;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.timeline-item {
+  margin-bottom: f.px-sp(40);
+  position: relative;
+
+  @include m.breakpoint-md {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: f.px-pc(60);
+  }
+}
+
+.timeline-year {
+  font-size: f.fs-sp(18);
+  font-weight: v.$font-weight-bold;
+  color: v.$color-primary;
+  margin-bottom: f.px-sp(10);
+
+  @include m.breakpoint-md-down {
+    text-indent: 1em;
+  }
+
+  @include m.breakpoint-md {
+    flex-basis: 25%; // 年を左側に配置
+    text-align: right;
+    font-size: f.fs-pc(22);
+    line-height: 1.5;
+  }
+}
+
+.timeline-body {
+  background-color: v.$color-white;
+  padding: f.px-sp(20);
+  border-radius: v.$border-radius;
+  box-shadow: v.$shadow-sm;
+
+  @include m.breakpoint-md {
+    flex-basis: 70%; // 内容を右側に配置
+    padding: f.px-pc(25);
+    text-align: left;
+  }
+
+  // 縦線上の丸点
+  &::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: v.$color-primary;
+    border-radius: 50%;
+    border: 2px solid v.$color-white;
+    z-index: v.$z-index-base + 1; // 縦線の上に表示
+
+    @include m.breakpoint-md {
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, 5px);
+    }
+
+    @include m.breakpoint-md-down {
+      // SPでは左側に縦線風の表現
+      left: 0;
+      top: 10px;
+    }
+  }
+}
+
+.timeline-title {
+  font-size: f.fs-sp(16);
+  font-weight: v.$font-weight-bold;
+  margin-top: 0;
+  margin-bottom: f.px-sp(10);
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(18);
+  }
+
+  @include m.breakpoint-md-down {
+    // SPで丸点の分、テキストをずらす
+    margin-left: f.px-sp(20);
+  }
+}
+
+.timeline-text {
+  font-size: f.fs-sp(14);
+  color: v.$color-gray;
+  line-height: 1.7;
+  margin-bottom: 0;
+
+  @include m.breakpoint-md-down {
+    margin-left: f.px-sp(20);
+  }
+}
+
+/* 社長プロフィールページ専用 */
+.profile-layout {
+  // greeting-layout と同じく、PCで左右レイアウトにする
+  @include m.breakpoint-md {
+    display: flex;
+    gap: f.px-pc(60);
+    align-items: flex-start;
+  }
+}
+
+.profile-photo-area {
+  @include m.breakpoint-md {
+    flex: 1; // 写真エリアを狭めに
+    flex-shrink: 0;
+    max-width: f.px-pc(300); // 最大幅を制限
+  }
+
+  @include m.breakpoint-md-down {
+    margin-bottom: f.px-sp(30);
+    text-align: center; // SPで中央寄せ
+  }
+}
+
+.ceo-img-container {
+  margin: 0;
+  // SPでは画像が画面幅いっぱいになりすぎないように最大幅を設定
+  max-width: f.px-sp(300);
+  margin-left: auto;
+  margin-right: auto;
+
+  @include m.breakpoint-md {
+    max-width: none; // PCではflexで制御するため解除
+  }
+}
+
+.ceo-name-jp {
+  font-size: f.fs-sp(20);
+  font-weight: v.$font-weight-bold;
+  margin-top: f.px-sp(15);
+  margin-bottom: f.px-sp(5);
+  color: v.$color-gray-dark;
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(24);
+    margin-top: f.px-pc(20);
+  }
+}
+
+.ceo-name-en {
+  font-size: f.fs-sp(14);
+  color: v.$color-secondary;
+}
+
+.profile-detail {
+  @include m.breakpoint-md {
+    flex: 2; // 詳細エリアを広めに
+  }
+}
+
+.profile-heading {
+  font-size: f.fs-sp(20);
+  font-weight: v.$font-weight-bold;
+  border-left: 5px solid v.$color-primary; // 左側にプライマリカラーのボーダー
+  padding-left: f.px-sp(10);
+  margin-bottom: f.px-sp(20);
+  margin-top: f.px-sp(40); // 略歴などのセクションヘッダー用
+
+  &:first-of-type {
+    margin-top: 0; // プロフィールセクション直下の最初の見出しはマージンなし
+  }
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(24);
+    padding-left: f.px-pc(15);
+    margin-bottom: f.px-pc(25);
+    margin-top: f.px-pc(50);
+  }
+}
+
+.profile-table {
+  // company-table のスタイルを流用
+  .table-row {
+    border-bottom: 1px dashed v.$color-gray-light; // 点線にして会社概要と区別
+  }
+}
+
+.career-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    font-size: f.fs-sp(15);
+    line-height: 1.7;
+    margin-bottom: f.px-sp(10);
+    padding-left: f.px-sp(20); // アイコンのためのスペース
+
+    position: relative;
+    &::before {
+      content: '\2022'; // 箇条書きドット (・)
+      color: v.$color-primary;
+      font-weight: v.$font-weight-bold;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  @include m.breakpoint-md {
+    li {
+      font-size: f.fs-pc(16);
+      padding-left: f.px-pc(25);
+      margin-bottom: f.px-pc(15);
+    }
+  }
+}

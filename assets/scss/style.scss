@@ -1,0 +1,21 @@
+// 1. BASE（設定・土台）
+// 変数ファイルや共通関数はグローバルに利用できるように 'as *' を推奨
+@use "sass:math"; // ★数学関数を有効化 (推奨)
+
+// 変数・関数・Mixinをネームスペースなしで利用可能にする
+@use "1-base/variables" as *; // ★ 1. 変数定義 (as * で直接アクセス可能に)
+@use "1-base/functions" as *; // 2. rem()など関数定義 (as * で直接アクセス可能に)
+@use "1-base/mixins" as *; // ★ 3. 変数を使ったMixin定義 (as * で @include breakpoint-md のように直接アクセス可能に)
+
+// リセットや基本スタイルは、ネームスペースなしで読み込むだけでOK
+@use "1-base/reset"; // 4. 土台となるリセット適用
+
+// 2. LAYOUT
+@use "3-layout/header";
+@use "3-layout/footer";
+@use "3-layout/navigation";
+@use "3-layout/main";
+
+// 3. COMPONENTS
+@use "2-components/button";
+@use "2-components/utilities";

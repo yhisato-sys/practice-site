@@ -1,0 +1,48 @@
+// ===================================
+// _page-component-catalog.scss
+// サービス固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "sass:color";
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+.catalog-item {
+  border-top: 3px double v.$color-gray;
+  padding-top: f.px-sp(30);
+  padding-bottom: f.px-sp(30);
+  @include m.breakpoint-md {
+    padding-top: f.px-pc(30);
+    padding-bottom: f.px-pc(30);
+  }
+  &:last-child {
+    border-bottom: 3px double v.$color-gray;
+  }
+  h3 {
+    font-size: f.fs-sp(24);
+    margin-bottom: f.px-sp(30);
+    @include m.breakpoint-md {
+      font-size: f.fs-pc(28);
+      margin-bottom: f.px-pc(30);
+    }
+  }
+  h4 {
+    font-size: f.fs-sp(20);
+    margin: f.px-sp(20) 0;
+    @include m.breakpoint-md {
+      font-size: f.fs-pc(24);
+      margin: f.px-pc(20) 0;
+    }
+  }
+  h3 + h4 {
+    margin-top: 0;
+  }
+  .section-heading {
+    margin-bottom: 0;
+  }
+  .code-copy-container {
+    margin-bottom: 0;
+  }
+}

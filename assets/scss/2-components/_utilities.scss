@@ -1,0 +1,220 @@
+// ===================================
+// _utilities.scss
+// サイト共通ユーティリティクラスのスタイル
+// ===================================
+
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+@use "sass:color"; // color.adjust() 関数を使用するため
+
+// -----------------------------------
+// 1. hr
+// -----------------------------------
+hr.my-lg {
+  border: none;
+  border-top: 1px solid v.$color-gray-light; /* 変数に合わせて調整 */
+  margin-top: f.rem(30px);
+  margin-bottom: f.rem(30px);
+  @include m.breakpoint-md {
+    margin-top: f.rem(40px);
+    margin-bottom: f.rem(40px);
+  }
+}
+hr.my-xl {
+  border: none;
+  border-top: 2px solid v.$color-gray-light; /* 変数に合わせて調整 */
+  margin-top: f.rem(50px);
+  margin-bottom: f.rem(50px);
+  @include m.breakpoint-md {
+    margin-top: f.rem(60px);
+    margin-bottom: f.rem(60px);
+  }
+}
+
+// -----------------------------------
+// 2. テキストカラー、背景色ユーティリティ
+// -----------------------------------
+.bg-success {
+  background-color: v.$color-success !important;
+}
+.bg-success-light {
+  background-color: color.adjust(v.$color-success, $lightness: 20%) !important;
+}
+.bg-success-dark {
+  background-color: color.adjust(v.$color-success, $lightness: -10%) !important;
+}
+.bg-primary {
+  background-color: v.$color-primary !important;
+}
+.bg-primary-light {
+  background-color: v.$color-primary-light !important;
+}
+.bg-primary-lighter {
+  background-color: v.$color-primary-lighter !important;
+}
+.bg-secondary {
+  background-color: v.$color-secondary !important;
+}
+.bg-gray {
+  background-color: v.$color-gray-light !important;
+}
+
+.bg-gray-light {
+  background-color: v.$color-gray-light !important;
+}
+.bg-gray-dark {
+  background-color: v.$color-gray-dark !important;
+}
+.text-white {
+  color: v.$color-white !important;
+}
+.text-primary {
+  color: v.$color-primary !important;
+}
+.text-secondary {
+  color: v.$color-secondary !important;
+}
+
+// -----------------------------------
+// 3. テキストアラインメント
+// -----------------------------------
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.text-left {
+  text-align: left !important;
+}
+
+// -----------------------------------
+// 4. マージンユーティリティ
+// -----------------------------------
+.mt-00 {
+  margin-top: 0 !important;
+}
+.mt-sm {
+  margin-top: f.rem(v.$space-sm) !important;
+}
+.mt-md {
+  margin-top: f.rem(v.$space-md) !important;
+}
+.mt-lg {
+  margin-top: f.rem(v.$space-lg) !important;
+}
+.mt-xl {
+  margin-top: f.rem(v.$space-xl) !important;
+}
+.mt-xxl {
+  margin-top: f.rem(v.$space-xxl) !important;
+}
+.mb-00 {
+  margin-bottom: 0 !important;
+}
+.mb-sm {
+  margin-bottom: f.rem(v.$space-sm) !important;
+}
+.mb-md {
+  margin-bottom: f.rem(v.$space-md) !important;
+}
+.mb-lg {
+  margin-bottom: f.rem(v.$space-lg) !important;
+}
+.mb-xl {
+  margin-bottom: f.rem(v.$space-xl) !important;
+}
+.mb-xxl {
+  margin-bottom: f.rem(v.$space-xxl) !important;
+}
+
+// -----------------------------------
+// 5. レスポンシブ改行ユーティリティ
+// -----------------------------------
+.br-pc {
+  // SPサイズ（$breakpoint-pc未満）では非表示
+  display: none;
+
+  // PCサイズ（$breakpoint-pc以上）では表示
+  @include m.breakpoint-md {
+    display: block;
+  }
+}
+
+// SPでのみ表示する改行クラス
+.br-sp {
+  // SPサイズ（$breakpoint-pc未満）では表示
+  display: block;
+
+  // PCサイズ（$breakpoint-pc以上）では非表示
+  @include m.breakpoint-md {
+    display: none;
+  }
+}
+
+// -----------------------------------
+// 6. 見出しデザイン
+// -----------------------------------
+
+// section見出しデザインのタイプ指定
+// $section-heading-type: "default";
+section {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: v.$font-weight-bold;
+    &[data-heading-design='marker-underline'] {
+      @include m.section-heading-design('marker-underline');
+      // または、ミックスイン内でデータ属性セレクタを受け付けるように設計されている場合は、
+      // @include m.section-heading-marker-underline; のような専用ミックスインを呼び出します。
+    }
+
+    &[data-heading-design='underline-primary'] {
+      @include m.section-heading-design('underline-primary');
+    }
+
+    &[data-heading-design='border-left-accent'] {
+      @include m.section-heading-design('border-left-accent');
+    }
+
+    &[data-heading-design='ribbon-background'] {
+      @include m.section-heading-design('ribbon-background');
+    }
+
+    &[data-heading-design='simple-line-box'] {
+      @include m.section-heading-design('simple-line-box');
+    }
+
+    &[data-heading-design='double-line-primary'] {
+      @include m.section-heading-design('double-line-primary');
+    }
+
+    &[data-heading-design='speech-bubble'] {
+      @include m.section-heading-design('speech-bubble');
+    }
+
+    &[data-heading-design='shadow-box'] {
+      @include m.section-heading-design('shadow-box');
+    }
+
+    &[data-heading-design='vertical-ribbon'] {
+      @include m.section-heading-design('vertical-ribbon');
+    }
+
+    &[data-heading-design='icon-left-accent'] {
+      @include m.section-heading-design('icon-left-accent');
+    }
+
+    &[data-heading-design='left-right-line'] {
+      @include m.section-heading-design('left-right-line');
+    }
+
+    &[data-heading-design='left-line'] {
+      @include m.section-heading-design('left-line');
+    }
+  }
+}

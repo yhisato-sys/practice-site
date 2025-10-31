@@ -1,0 +1,221 @@
+// ===================================
+// _page-top.scss
+// トップページ固有のスタイル
+// ===================================
+
+// 1-base フォルダの変数・関数・Mixinを読み込む
+@use "../../1-base/variables" as v;
+@use "../../1-base/functions" as f;
+@use "../../1-base/mixins" as m;
+
+// -----------------------------------
+// 1. ヒーローセクション (ファーストビュー)
+// -----------------------------------
+
+#hero {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  .container {
+    max-width: inherit;
+    width: auto;
+    display: inline-block;
+  }
+
+  picture,
+  .container {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  h2 {
+    color: v.$color-black;
+
+    font-size: f.fs-sp(52);
+
+    margin-bottom: f.rem(v.$space-md);
+    font-weight: v.$font-weight-bold;
+
+    @include m.breakpoint-md {
+      font-size: f.fs-pc-key(88);
+    }
+  }
+
+  p {
+    color: rgba(v.$color-black, 0.9);
+    font-size: f.rem(20px);
+  }
+}
+
+// -----------------------------------
+// 2. お知らせ/ニュースセクション (Latest News)
+// -----------------------------------
+
+.news-list {
+  border-top: 1px solid v.$color-gray-light;
+}
+
+.news-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid v.$color-gray-light;
+  text-decoration: none;
+  color: v.$color-black;
+  @include m.transition();
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  @include m.breakpoint-md-down {
+    display: block; // SPでは縦に積み上げる
+  }
+}
+
+.news-date {
+  flex-shrink: 0; // 幅を固定
+  width: f.px-sp(80); // SP 80px
+
+  @include m.breakpoint-md {
+    width: f.px-pc(120); // PC 120px
+  }
+}
+
+.news-category {
+  display: inline-block;
+  font-size: f.fs-sp(12);
+  padding: 3px 6px;
+  margin-left: f.px-sp(16);
+  margin-right: f.px-sp(16);
+  border-radius: v.$border-radius;
+  flex-shrink: 0;
+  text-align: center;
+
+  @include m.breakpoint-md {
+    font-size: f.rem(14px);
+    margin-left: f.px-pc(24);
+    margin-right: f.px-pc(24);
+    min-width: f.rem(68px);
+  }
+
+  @include m.breakpoint-md-down {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
+
+.news-title {
+  margin: 0;
+  line-height: 1.5;
+  flex-grow: 1;
+
+  @include m.breakpoint-md-down {
+    margin-top: 4px;
+  }
+}
+
+// タグの色
+.tag-update {
+  background-color: v.$color-primary-light;
+  color: v.$color-white;
+}
+.tag-event {
+  background-color: v.$color-success;
+  color: v.$color-white;
+}
+.tag-info {
+  background-color: v.$color-danger;
+  color: v.$color-white;
+}
+
+.btn-wrap {
+  text-align: center;
+  margin-top: f.px-sp(32);
+
+  @include m.breakpoint-md {
+    margin-top: f.px-pc(48);
+  }
+}
+
+// -----------------------------------
+// 3. サービス紹介セクション (Features)
+// -----------------------------------
+
+.features-grid {
+  display: grid;
+  // SPでは1カラム、PCでは3カラム
+  grid-template-columns: 1fr;
+  gap: f.px-sp(24);
+
+  @include m.breakpoint-md {
+    grid-template-columns: repeat(3, 1fr);
+    gap: f.px-pc(32);
+  }
+}
+
+.feature-item {
+  background-color: v.$color-white;
+  padding: f.px-sp(24);
+  border-radius: v.$border-radius;
+  text-align: center;
+  box-shadow: v.$shadow-sm;
+  @include m.transition();
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: v.$shadow-md;
+  }
+
+  @include m.breakpoint-md {
+    padding: f.px-pc(40);
+  }
+}
+
+// feature-iconコンテナは配置（中央寄せなど）を担当
+.feature-icon {
+  @include m.center-flex;
+  width: f.px-sp(64);
+  height: f.px-sp(64);
+  margin: 0 auto f.px-sp(16);
+
+  @include m.breakpoint-md {
+    width: f.px-pc(80);
+    height: f.px-pc(80);
+    margin: 0 auto f.px-pc(24);
+  }
+}
+
+// 実際のアイコンのスタイルは i タグに適用
+.feature-icon i {
+  font-size: f.fs-sp(32); // アイコン自体のサイズ
+  color: v.$color-primary; // アイコン自体の色
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(60);
+  }
+}
+
+.feature-heading {
+  font-size: f.fs-sp(18);
+  font-weight: v.$font-weight-bold;
+  margin-top: 0;
+  margin-bottom: f.px-sp(8);
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(20);
+    margin-bottom: f.px-pc(12);
+  }
+}
+
+.feature-text {
+  font-size: f.fs-sp(14);
+  color: v.$color-gray;
+  line-height: 1.6;
+  margin-bottom: 0;
+
+  @include m.breakpoint-md {
+    font-size: f.fs-pc(16);
+  }
+}

@@ -1,0 +1,142 @@
+// ===================================
+// _footer.scss
+// サイト共通フッター
+// ===================================
+
+@use "../1-base/variables" as v;
+@use "../1-base/functions" as f;
+@use "../1-base/mixins" as m;
+
+.footer {
+  background-color: v.$color-gray-dark;
+  color: v.$color-white;
+  padding: f.rem(v.$space-lg) f.rem(v.$space-md);
+
+  @include m.breakpoint-md {
+    padding: f.rem(v.$space-xl) f.rem(v.$space-md);
+  }
+}
+
+.footer .container {
+  padding: 0;
+  text-align: center;
+
+  @include m.breakpoint-md {
+    display: grid;
+    column-gap: f.px-pc(50);
+  }
+
+  a {
+    color: v.$color-gray-light;
+
+    &:hover {
+      color: v.$color-primary;
+    }
+  }
+}
+
+.footer .logo-area {
+  @include m.breakpoint-md {
+    grid-row: 1/1;
+    grid-column: 1/2;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .site-logo {
+    @include m.breakpoint-md-down {
+      margin: 0 auto;
+    }
+  }
+
+  .logo01 {
+    svg {
+      fill: #fff;
+    }
+  }
+}
+
+.footer .add {
+  margin-top: 1.5em;
+}
+
+.footer .Copyright {
+  font-size: f.rem(12px);
+  margin-top: 2em;
+
+  @include m.breakpoint-md {
+    font-size: f.rem(14px);
+    margin-top: 0;
+    text-align: left;
+  }
+}
+
+.footer-nav {
+  display: inline-block;
+  margin-top: 2em;
+
+  @include m.breakpoint-md {
+    margin-top: 0;
+    grid-row: 1/1;
+    grid-column: 2/3;
+    text-align: left;
+  }
+
+  > ul {
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+    @include m.breakpoint-md {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+  }
+
+  > ul > li {
+    position: relative;
+    padding: 0;
+    margin-bottom: 20px;
+    width: 100%;
+
+    @include m.breakpoint-md {
+      margin-bottom: 0;
+      width: auto;
+      flex-shrink: 0;
+    }
+  }
+
+  .sub-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    padding-left: 1.5em;
+
+    @include m.breakpoint-md {
+      margin-top: 10px;
+    }
+  }
+
+  .sub-menu li + li {
+    margin-top: 0.5em;
+
+    @include m.breakpoint-md {
+      margin-top: 1em;
+    }
+  }
+
+  .stacked-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}

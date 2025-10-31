@@ -1,0 +1,103 @@
+// ===================================
+// 1. カラーパレット (Colors)
+// ===================================
+
+$color-primary: #007bff;
+$color-primary-light: #4fa4ff;
+$color-primary-lighter: #89c2ff;
+$color-secondary: #6c757d;
+
+$color-black: #1a1a1a;
+$color-gray-dark: #343a40;
+$color-gray: #6c757d;
+$color-gray-light: #e9ecef;
+$color-white: #ffffff;
+
+$color-success: #28a745;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+
+$nav-bg-level1: #f8f8f8; // 1階層目の背景色
+$nav-bg-level1-hover: #eee; // 1階層目のホバー時の背景色
+
+$nav-bg-level2-pc: #f5f5f5; // PC 2階層目の背景色
+$nav-bg-level2-sp: #f0f0f0; // SP 2階層目の背景色
+$nav-bg-level2-hover: #e0e0e0; // 2階層目のホバー時の背景色
+
+$nav-bg-level3-pc: #ededed; // PC 3階層目の背景色
+$nav-bg-level3-sp: #e8e8e8; // SP 3階層目の背景色
+$nav-bg-level3-hover: #d0d0d0; // 3階層目のホバー時の背景色
+
+// ===================================
+// 2. スペーシング (Spacing)
+// ===================================
+
+$base-unit: 16px;
+
+$space-xxs: 4px;
+$space-xs: 8px;
+$space-sm: 16px;
+$space-md: 24px;
+$space-lg: 40px;
+$space-xl: 64px;
+$space-xxl: 96px;
+
+// ===================================
+// 3. ブレークポイント (Breakpoints)
+// ===================================
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$breakpoint-header: 930px;
+
+$container-max-width: 1140px;
+
+$maxWidthSP: 420;
+$maxWidthPc: 1140;
+$maxWidthKey: 1600;
+
+// ===================================
+// 4. タイポグラフィ (Typography)
+// ===================================
+
+$font-family-sans-serif: 'Noto Sans JP', 'Hiragino Sans', 'Meiryo', sans-serif;
+$font-family-serif: 'Times New Roman', Times, serif;
+
+$section-heading-sp: 26px;
+$section-heading-pc: 40px;
+$section-heading-second-sp: 20px;
+$section-heading-second-pc: 30px;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// ===================================
+// 5. UI設定 (UI Settings)
+// ===================================
+
+$border-radius: 4px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+
+$shadow-sm: 0 1px 3px rgba($color-black, 0.1);
+$shadow-md: 0 4px 6px rgba($color-black, 0.1);
+
+$z-index-base: 1;
+$z-index-sticky: 100;
+$z-index-dropdown: 1000;
+$z-index-modal: 2000;
+$z-index-overlay: 3000;
+
+// ===================================
+// 6. line-hight設定 (Line-height Settings)
+// ===================================
+
+$line-height-lg: 2;
+$line-height-base: 1.6;
+$line-height-heading: 1.2;
+$line-height-compressed: 1.4;

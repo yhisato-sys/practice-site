@@ -1,0 +1,48 @@
+// ===================================
+// _typography.scss
+// サイト全体の基本フォントと見出しのスタイル
+// ===================================
+
+// 依存関係を明示的に @use で読み込む（パスはstyle.scssからの相対パスを想定）
+@use "variables" as v; // 変数ファイル
+@use "functions" as f; // rem()関数など
+@use "mixins" as m; // breakpoint Mixin
+
+// -----------------------------------
+// 1. 基本となる HTML/Body の設定
+// -----------------------------------
+html {
+  font-size: 100%;
+}
+// bodyにベースとなるフォントファミリー、サイズ、ウェイトを適用
+body {
+  font-family: v.$font-family-sans-serif;
+  line-height: v.$line-height-base;
+  font-weight: v.$font-weight-normal;
+  font-size: 0.875rem;
+  @include m.breakpoint-md {
+    font-size: 1rem;
+  }
+}
+
+// -----------------------------------
+// 2. 見出しのスタイル
+// -----------------------------------
+
+// すべての見出し（H1〜H6）に共通のスタイル
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: v.$font-weight-bold;
+  line-height: v.$line-height-heading;
+}
+
+// -----------------------------------
+// 3. その他のテキスト要素
+// -----------------------------------
+li {
+  line-height: v.$line-height-compressed;
+}
