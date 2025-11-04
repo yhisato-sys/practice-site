@@ -3,7 +3,7 @@ backend:
   repo: yhisato-sys/practice-site # ← あなたのリポジトリ
   branch: main # ← メインブランチ
   auth_type: implicit # ← ログイン方式をGitHubに
-  app_id: 04fd16f262bde37148c6 # ← GitHub OAuth 公開クライアントID（共通でOK）
+  app_id: Ov23lipSH3b6B1q4yA5T # ← GitHub OAuth 公開クライアントID（共通でOK）
 
 publish_mode: editorial_workflow
 
