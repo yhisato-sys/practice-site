@@ -1,6 +1,11 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
+  repo: yhisato-sys/practice-site # ← あなたのリポジトリ
+  branch: main # ← メインブランチ
+  auth_type: implicit # ← ログイン方式をGitHubに
+  app_id: 04fd16f262bde37148c6 # ← GitHub OAuth 公開クライアントID（共通でOK）
+
+publish_mode: editorial_workflow
 
 media_folder: "images"
 public_folder: "/images"
