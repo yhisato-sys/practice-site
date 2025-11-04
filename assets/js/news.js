@@ -1,25 +1,44 @@
-const newsList = document.getElementById("news-list");
+async function loadPosts() {
+  const postsArea = document.getElementById("news-list");
 
-// サンプル記事データ（実際は Markdown から生成）
-const articles = [
-  {
-    title: "テスト記事1",
-    date: "2025-10-31",
-    body: "ここに記事本文1",
-  },
-  {
-    title: "テスト記事2",
-    date: "2025-10-30",
-    body: "ここに記事本文2",
-  },
-];
+  const repo = "yhisato-sys/practice-site";
+  const branch = "main";
+  const postsFolder = "posts";
 
-// 日付順にソート（新しいものが上）
-articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${postsFolder}?ref=${branch}`;
 
-// HTMLに反映
-articles.forEach((article) => {
-  const li = document.createElement("li");
-  li.innerHTML = `<strong>${article.date}</strong> - ${article.title}`;
-  newsList.appendChild(li);
-});
+  const res = await fetch(apiUrl);
+  const files = await res.json();
+
+  const converter = new showdown.Converter();
+
+  for (const file of files.reverse()) {
+    if (!file.name.endsWith(".md")) continue;
+
+    const fileRes = await fetch(file.download_url);
+    const text = await fileRes.text();
+
+    const match = text.match(/---([\s\S]*?)---/);
+    if (!match) continue;
+
+    const frontMatter = match[1];
+    const body = text.replace(match[0], "").trim();
+
+    const title = frontMatter.match(/title:\s*(.*)/)?.[1] || "タイトルなし";
+    const date = frontMatter.match(/date:\s*(.*)/)?.[1] || "日付なし";
+
+    const htmlBody = converter.makeHtml(body);
+
+    const article = document.createElement("div");
+    article.className = "news-item";
+    article.innerHTML = `
+      <h3>${title}</h3>
+      <p>${date}</p>
+      <div>${htmlBody}</div>
+      <hr>
+    `;
+    postsArea.appendChild(article);
+  }
+}
+
+loadPosts();
