@@ -1,7 +1,6 @@
 backend:
-  name: github
-  repo: yhisato-sys/practice-site # GitHubリポジトリ
-  branch: main # ブランチ
+  name: git-gateway
+  branch: main
 
 media_folder: "images"
 public_folder: "/images"
