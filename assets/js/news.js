@@ -22,12 +22,18 @@ async function loadPosts() {
     const frontMatter = match[1];
 
     const title = frontMatter.match(/title:\s*(.*)/)?.[1] || "タイトルなし";
-    const date = frontMatter.match(/date:\s*(.*)/)?.[1] || "日付なし";
+    let date = frontMatter.match(/date:\s*(.*)/)?.[1] || "日付なし";
+
+    // ▼ 日付整形
+    const d = new Date(date);
+    const formattedDate = `${d.getFullYear()}.${String(
+      d.getMonth() + 1
+    ).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
 
     const item = document.createElement("li");
     item.className = "news-item";
     item.innerHTML = `
-      <span class="news-date">${date}</span>
+      <span class="news-date">${formattedDate}</span>
       <span class="news-title">${title}</span>
     `;
 
