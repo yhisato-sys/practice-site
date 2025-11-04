@@ -10,8 +10,6 @@ async function loadPosts() {
   const res = await fetch(apiUrl);
   const files = await res.json();
 
-  const converter = new showdown.Converter();
-
   for (const file of files.reverse()) {
     if (!file.name.endsWith(".md")) continue;
 
@@ -22,22 +20,18 @@ async function loadPosts() {
     if (!match) continue;
 
     const frontMatter = match[1];
-    const body = text.replace(match[0], "").trim();
 
     const title = frontMatter.match(/title:\s*(.*)/)?.[1] || "タイトルなし";
     const date = frontMatter.match(/date:\s*(.*)/)?.[1] || "日付なし";
 
-    const htmlBody = converter.makeHtml(body);
-
-    const article = document.createElement("div");
-    article.className = "news-item";
-    article.innerHTML = `
-      <h3>${title}</h3>
-      <p>${date}</p>
-      <div>${htmlBody}</div>
-      <hr>
+    const item = document.createElement("li");
+    item.className = "news-item";
+    item.innerHTML = `
+      <span class="news-date">${date}</span>
+      <span class="news-title">${title}</span>
     `;
-    postsArea.appendChild(article);
+
+    postsArea.appendChild(item);
   }
 }
 
