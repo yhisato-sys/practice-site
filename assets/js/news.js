@@ -34,7 +34,9 @@ async function loadPosts() {
     item.className = "news-item";
     item.innerHTML = `
       <span class="news-date">${formattedDate}</span>
-      <span class="news-title">${title}</span>
+  <a class="news-title" href="post.html?post=${file.name}">
+    ${title}
+  </a>
     `;
 
     postsArea.appendChild(item);
