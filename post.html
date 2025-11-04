@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>お知らせ詳細</title>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+  </head>
+  <body>
+    <a href="/">← 新着一覧へ戻る</a>
+    <h1 id="post-title"></h1>
+    <p id="post-date"></p>
+    <div id="post-body"></div>
+
+    <script>
+      async function loadPost() {
+        const params = new URLSearchParams(location.search);
+        const postFile = params.get("post");
+        if (!postFile) return;
+
+        const repo = "yhisato-sys/practice-site";
+        const branch = "main";
+        const url = `https://raw.githubusercontent.com/${repo}/${branch}/posts/${postFile}`;
+
+        const res = await fetch(url);
+        const text = await res.text();
+
+        const match = text.match(/---([\s\S]*?)---/);
+        const frontMatter = match[1];
+        const body = text.replace(match[0], "").trim();
+
+        const title = frontMatter.match(/title:\s*(.*)/)?.[1] || "";
+        const date = frontMatter.match(/date:\s*(.*)/)?.[1] || "";
+
+        // 日付整形
+        const d = new Date(date);
+        const formattedDate = `${d.getFullYear()}.${String(
+          d.getMonth() + 1
+        ).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+
+        document.getElementById("post-title").textContent = title;
+        document.getElementById("post-date").textContent = formattedDate;
+
+        const converter = new showdown.Converter();
+        document.getElementById("post-body").innerHTML =
+          converter.makeHtml(body);
+      }
+
+      loadPost();
+    </script>
+  </body>
+</html>
