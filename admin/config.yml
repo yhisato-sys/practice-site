@@ -1,10 +1,11 @@
 backend:
   name: github
-  repo: yhisato-sys/practice-site # ← あなたのリポジトリ
-  branch: main # ← メインブランチ
-  auth_type: "github" # ← ログイン方式をGitHubに
-  app_id: Ov23lipSH3b6B1q4yA5T # ← GitHub OAuth 公開クライアントID（共通でOK）
+  repo: yhisato-sys/practice-site
+  branch: main
+  auth_type: github
+  app_id: 0v231ipSH3b6B1q4yA5T
   base_url: https://yhisato-sys.github.io/practice-site
+  auth_endpoint: aut
 
 publish_mode: editorial_workflow
 
