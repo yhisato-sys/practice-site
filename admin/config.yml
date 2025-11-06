@@ -4,6 +4,7 @@ backend:
   branch: main # ← メインブランチ
   auth_type: "github" # ← ログイン方式をGitHubに
   app_id: Ov23lipSH3b6B1q4yA5T # ← GitHub OAuth 公開クライアントID（共通でOK）
+  base_url: https://yhisato-sys.github.io/practice-site
 
 publish_mode: editorial_workflow
 
