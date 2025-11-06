@@ -1,11 +1,6 @@
 backend:
-  name: github
-  repo: yhisato-sys/practice-site
+  name: git-gateway
   branch: main
-  auth_type: github
-  app_id: 0v231ipSH3b6B1q4yA5T
-  base_url: https://yhisato-sys.github.io/practice-site
-  auth_endpoint: auth
 
 publish_mode: editorial_workflow
 
